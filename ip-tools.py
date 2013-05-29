@@ -27,7 +27,7 @@ def reverse_dnslookup(host):
         if raw_input('Retry? (y) (n)') == 'y':
             reverse_dnslookup(host)
         else:
-            main()
+            menu()
 
 def whatismyip():
     '''Find your own ip address by opening a whatismyip website'''
