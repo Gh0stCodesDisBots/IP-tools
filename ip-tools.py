@@ -21,7 +21,7 @@ def reverse_dnslookup(host):
         addr = socket.gethostbyname(host)
         print'IP address is : ',addr
         sleep(2)
-        main()
+        menu()
     except Timeout:
         print'[*] The attempt to connect timed-out'
         if raw_input('Retry? (y) (n)') == 'y':
