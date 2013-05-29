@@ -1,3 +1,6 @@
+
+
+
 #-------------------------------------------------------------------------------
 # Name:        IP tools
 # Purpose:     To make a few tools that assist in networking
@@ -8,37 +11,61 @@
 # Licence:     <Opensource GNU>
 #-------------------------------------------------------------------------------
 
-import urllib2
-import socket
+import urllib2, socket
+from dns.exception import *
 from time import sleep
 
-def find_ip_of_website(host):
-    addr = socket.gethostbyname(host)
-    print'IP address is : ',addr
-    sleep(2)
-    main()
+def reverse_dnslookup(host):
+    '''Get website ip address'''
+    try :
+        addr = socket.gethostbyname(host)
+        print'IP address is : ',addr
+        sleep(2)
+        main()
+    except Timeout:
+        print'[*] The attempt to connect timed-out'
+        if raw_input('Retry? (y) (n)') == 'y':
+            reverse_dnslookup(host)
+        else:
+            main()
+    except Exception:
+        print'\n\t[*]Error ! You don\'t seem to be connected to internet'
+        print'\t[-] Terminated'
 
 def whatismyip():
-    ip = urllib2.urlopen('http://whatismyip.akamai.com/', timeout=10).read()
-    print'\nYour ip address is ',ip
-    print'\n'
-    sleep(2)
-    main()
+    '''Find your own ip address by opening a whatismyip website'''
+    try:
+        ip = urllib2.urlopen('http://whatismyip.akamai.com/', timeout=10).read()
+        print'\nYour ip address is ',ip
+        print'\n'
+        sleep(2)
+        main()
 
-def main():
+    except Timeout:
+        print'[*] The attempt to connect timed-out'
+        if raw_input('Retry? (y) (n)') == 'y':
+            reverse_dnslookup(host)
+        else:
+            main()
+    except Exception:
+        print'\n\t[*]Error ! No access to the internet'
+        print'\t[-] Program -- Terminated'
+
+def menu():
     print'\n\n\t','='*30
     print'\t1. Find ip of a website'
     print'\t2. Find your own ip address'
+    print'\n\t0. Exit'
     print'\t','='*30
-    print'\n\n\t0. Exit'
     choice = raw_input('\n : ')
     if choice == '1':
         hostname = raw_input('\nEnter host name : ')
-        find_ip_of_website(hostname)
+        reverse_dnslookup(hostname)
     elif choice == '2':
         whatismyip()
     elif choice == '0':
         exit()
 
-main()
+if __name__ == '__main__':
+    menu()
 
