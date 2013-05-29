@@ -28,9 +28,6 @@ def reverse_dnslookup(host):
             reverse_dnslookup(host)
         else:
             main()
-    except Exception:
-        print'\n\t[*]Error ! You don\'t seem to be connected to internet'
-        print'\t[-] Terminated'
 
 def whatismyip():
     '''Find your own ip address by opening a whatismyip website'''
@@ -39,17 +36,14 @@ def whatismyip():
         print'\nYour ip address is ',ip
         print'\n'
         sleep(2)
-        main()
+        menu()
 
     except Timeout:
         print'[*] The attempt to connect timed-out'
         if raw_input('Retry? (y) (n)') == 'y':
             reverse_dnslookup(host)
         else:
-            main()
-    except Exception:
-        print'\n\t[*]Error ! No access to the internet'
-        print'\t[-] Program -- Terminated'
+            menu()
 
 def menu():
     print'\n\n\t','='*30
