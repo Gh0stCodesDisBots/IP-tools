@@ -183,7 +183,7 @@ if __name__ == '__main__':
             ip = sys.argv[2]
             portrange = ''
             port_scan(ip,portrange)
-    elif len(sys.argv) == 3:
+    elif len(sys.argv) == 4:
         if sys.argv[1] == '-p':
             ip = sys.argv[2]
             portrange = sys.argv[3]
