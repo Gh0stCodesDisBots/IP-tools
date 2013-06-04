@@ -152,7 +152,7 @@ def port_scan(ip,portrange):
 if __name__ == '__main__':
     if len(sys.argv) == 2 and sys.argv[1] == '-o':
         whatismyip()
-    elif len(sys.argv) == 2 and sys.argv[1] == '-h':
+    elif len(sys.argv) == 2 and sys.argv[1] == '-h' or sys.argv[1] == '-help':
         usage()
     elif len(sys.argv) == 3:
         if sys.argv[1] == '-u':
