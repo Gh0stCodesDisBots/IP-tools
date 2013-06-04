@@ -24,22 +24,28 @@ def output(text):
         sleep(time)
 
 def usage():
-    output('''
+    try:
+        output('''
     Usage:
+        IP-tools.py -h                   -Show this help message
         IP-tools.py -o                   -View your own ip address
         IP-tools.py -u <url>             -View ip address of a website
         IP-tools.py                      -Go to program menu
         IP-tools.py -p                   -Go to portscan section
-        IP-tools.py -p <ip>              -Scan that ip for open ports. 
+        IP-tools.py -p <ip>              -Scan that ip for open ports.
                                           You can specify the port range too
         IP-tools.py -p <ip> <port-range> -Scan that ip for open ports from 5 to 100.
-        
+
     Example:
         IP-tools.py -u http://www.google.com/
         IP-tools.py -u www.google.com
         IP-tools.py -p 127.0.0.1
         IP-tools.py -p 127.0.0.1 5-100
     ''')
+    except KeyboardInterrupt:
+        output('\n\t[!] User interrupt')
+        output('\n\t[!] Program terminated ')
+        exit()
 
 def reverse_dnslookup(host):
     '''Get website ip address'''
@@ -49,7 +55,7 @@ def reverse_dnslookup(host):
         addr = socket.gethostbyname(host)
         print''
         print'+'+'='*32 +'+'
-        print'|IP address is : ',addr,'|'
+        print'|IP address is : ',addr
         print'+'+'='*32 +'+'
 
     except Timeout:
@@ -66,7 +72,7 @@ def whatismyip():
         print''
         banner1 = '+'+'='*33 +'+'
         output(banner1)
-        print'\n|Your ip address is ',ip,'|\n'
+        print'\n|Your ip address is ',ip
         output(banner1)
         print'\n'
         sleep(2)
@@ -122,7 +128,7 @@ def port_scan(ip,portrange):
             output("Enter port range eg(5-200)")
             lowport,highport = raw_input(" : ").split('-')
         else:
-    	  lowport,highport = portrange.split('-')
+          lowport,highport = portrange.split('-')
         msg = '[~] Scanning host ', ip,' from port ', lowport,' to port ',highport,' [~]\n'
         output(msg)
 
@@ -144,12 +150,14 @@ def port_scan(ip,portrange):
         exit()
 
 if __name__ == '__main__':
-    if len(sys.argv) == 2:
+    if len(sys.argv) == 2 and sys.argv[1] == '-o':
+        whatismyip()
+    elif len(sys.argv) == 2 and sys.argv[1] == '-h':
+        usage()
+    elif len(sys.argv) == 3:
         if sys.argv[1] == '-u':
             host = sys.argv[2]
             reverse_dnslookup(host)
-        elif sys.argv[1] == '-o':
-            whatismyip()
         elif sys.argv[1] == '-p':
             if len(sys.argv) == 3 :
                 ip = sys.argv[2]
@@ -175,8 +183,7 @@ if __name__ == '__main__':
             ip = sys.argv[2]
             portrange = ''
             port_scan(ip,portrange)
-
-    elif len(sys.argv) == 4:
+    elif len(sys.argv) == 3:
         if sys.argv[1] == '-p':
             ip = sys.argv[2]
             portrange = sys.argv[3]
