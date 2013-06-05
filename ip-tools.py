@@ -96,7 +96,7 @@ def menu():
 
     choice = raw_input('\n : ')
     if choice == '1':
-        ouput('\nEnter host name')
+        output('\nEnter host name')
         hostname = raw_input(" : ")
         if hostname.endswith('/'):
             hostname = hostname.replace('/','')
