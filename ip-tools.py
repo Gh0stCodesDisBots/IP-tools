@@ -1,9 +1,7 @@
 #-------------------------------------------------------------------------------
 # Name: IP tools
 # Purpose: To make a few tools that assist in networking
-#
 # Author: <4sec>
-#
 # Created: 29/05/2013
 # Licence: <Opensource GNU>
 #-------------------------------------------------------------------------------
@@ -110,7 +108,7 @@ def server_info(site):
         exit()
 
 def menu():
-    graphic = '''
+    graphic = '''\n\n
 /$$$$$$ /$$$$$$$        /$$$$$$$$                  /$$
 |_  $$_/| $$__  $$      |__  $$__/                 | $$
   | $$  | $$  \ $$         | $$  /$$$$$$   /$$$$$$ | $$  /$$$$$$$
@@ -162,6 +160,7 @@ def menu():
             exit()
         else:
             output('\n\t[!] You need to enter a number not other thing')
+            sleep(3)
             menu()
     except KeyboardInterrupt:
         output('\n\t[!] User interrupt\n\t[!] Program terminated')
