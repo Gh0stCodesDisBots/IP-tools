@@ -13,10 +13,13 @@ from sys import stdout
 from time import sleep
 
 def output(text,speed=''):
+    # For stimulating the typing effect with random microsecond pauses.
+    if not text.endswith("\n"): text+="\n"
     for char in text:
         stdout.write(char)
         stdout.flush()
         if speed == '':
+            # If speed is not defined, use the random time.
             t = [0.01,0.02]
             time = random.choice(t)
             sleep(time)
@@ -53,6 +56,8 @@ def reverse_dnslookup(host):
     try :
         if '/' in host : host = host.replace('/','')
         if 'http:' in host : host = host.replace('http:','')
+        # This method using built-in socket module's function is not reliable
+        # Need to find a new web service to use!
         addr = socket.gethostbyname(host)
         print''
         print'+'+'='*32 +'+'
@@ -93,9 +98,9 @@ def server_info(site):
         print'\n'
         banner1 = '+'+'='*33 +'+'
         output(banner1)
-        print '\n%s' % info
+        output(('\n%s' % info),0.005)
         output(banner1,'')
-        sleep(2)
+        raw_input("\nPress Enter to go to Menu ")
         menu()
 
     except IOError:
