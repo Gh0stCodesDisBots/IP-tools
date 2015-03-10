@@ -1,7 +1,7 @@
 IP-tools
 ========
 
-This tool has four feature currently:
+This tool has four features currently:
 
   1. View ip address of a website
   2. View your own ip address
